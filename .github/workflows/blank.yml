@@ -1,0 +1,112 @@
+.commands roblox script(roblox chat)
+
+local Players = game:GetService("Players")
+
+local function fly(playerName)
+    local player = Players[playerName]
+
+    player.Character.HumanoidRootPart.Anchored = false
+    player.Character.Humanoid.JumpPower = 100
+end
+
+local function unfly(playerName)
+    local player = Players[playerName]
+
+    player.Character.HumanoidRootPart.Anchored = true
+    player.Character.Humanoid.JumpPower = 50
+end
+
+local function esp()
+    while true do
+        for _, player in pairs(Players:GetPlayers()) do
+            local box = Drawing.new("Square")
+            box.Color = Color3.fromRGB(255, 0, 0)
+            box.Size = Vector2.new(20, 20)
+            box.Position = player.Character.HumanoidRootPart.Position
+            box.Visible = true
+        end
+        wait(0.01)
+    end
+end
+
+local function unesp()
+    for _, player in pairs(Players:GetPlayers()) do
+        local box = Drawing.new("Square")
+        box.Color = Color3.fromRGB(255, 0, 0)
+        box.Size = Vector2.new(20, 20)
+        box.Position = player.Character.HumanoidRootPart.Position
+        box.Visible = false
+    end
+end
+
+local function crashserver()
+    for _, player in pairs(Players:GetPlayers()) do
+        if player ~= game.Players.LocalPlayer then
+            player:Kick("Server Shutdown")
+        end
+    end
+end
+
+local function kickplayer(playerName)
+    local player = Players[playerName]
+
+    if player then
+        player:Kick("Kicked for exploiting")
+    end
+end
+
+local function freezeplayer(playerName)
+    local player = Players[playerName]
+
+    if player then
+        player.Character.HumanoidRootPart.Anchored = true
+        player.Character.Humanoid.JumpPower = 0
+    end
+end
+
+local function killplayer(playerName)
+    local player = Players[playerName]
+
+    if player then
+        player.Character.Humanoid.Health = 0
+    end
+end
+
+local function teleporttoplayer(playerName)
+    local player = Players[playerName]
+
+    if player then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame
+    end
+end
+
+local function bringplayer(playerName)
+    local player = Players[playerName]
+
+    if player then
+        local targetCFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+        player.Character.HumanoidRootPart.CFrame = targetCFrame
+    end
+end
+
+game.Players.Chatted:Connect(function(player, message)
+    if message:sub(1, 5) == ".fly" then
+        fly(message:sub(6))
+    elseif message:sub(1, 6) == ".unfly" then
+        unfly(message:sub(7))
+    elseif message:sub(1, 4) == ".esp" then
+        esp()
+    elseif message:sub(1, 5) == ".unesp" then
+        unesp()
+    elseif message:sub(1, 5) == ".crashserver" then
+        crashserver()
+    elseif message:sub(1, 6) == ".kick" then
+        kickplayer(message:sub(7))
+    elseif message:sub(1, 6) == ".freeze" then
+        freezeplayer(message:sub(7))
+    elseif message:sub(1, 5) == ".kill" then
+        killplayer(message:sub(6))
+    elseif message:sub(1, 4) == ".tp" then
+        teleporttoplayer(message:sub(5))
+    elseif message:sub(1, 5) == ".bring
+
